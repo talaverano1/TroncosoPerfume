@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/app/data/products";
 
 interface ProductCardProps {
@@ -46,9 +47,12 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           <span className="text-gold font-bold text-lg">
             ${product.price.toLocaleString("es-AR")} {/* toLocaleString("es-AR") formatea el número como moneda argentina */}
           </span>
-          <button className="bg-black text-white text-sm px-4 py-2 rounded-full hover:bg-gold hover:text-black transition-colors duration-300 cursor-pointer">
+          <Link
+            href={`/product/${product.id}`}
+            className="bg-black text-white text-sm px-4 py-2 rounded-full hover:bg-gold hover:text-black transition-colors duration-300 cursor-pointer"
+          >
             Ver producto
-          </button>
+          </Link>
         </div>
       </div>
     </motion.div>

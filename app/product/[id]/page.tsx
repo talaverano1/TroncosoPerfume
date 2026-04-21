@@ -15,7 +15,7 @@ const fadeUp: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -218,7 +218,7 @@ export default function ProductDetailPage() {
                   {ALL_SEASONS.map((season) => {
                     const hasUsage = product.usageLevels !== undefined;
                     const defaultActive = product.climate.includes(season);
-                    const fillValue = hasUsage ? (product.usageLevels[season] || 0) : (defaultActive ? 100 : 0);
+                    const fillValue = hasUsage ? (product.usageLevels?.[season] ?? 0) : (defaultActive ? 100 : 0);
                     const isActive = hasUsage ? fillValue > 0 : defaultActive;
                     const cfg = climateConfig[season];
                     return (
@@ -232,7 +232,7 @@ export default function ProductDetailPage() {
                         <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full ${cfg.color} transition-all duration-700`}
-                            style={{ width: `${hasUsage ? fillValue : (defaultActive ? 100 : 0)}%` }}
+                            style={{ width: `${fillValue}%` }}
                           />
                         </div>
                       </div>
@@ -241,7 +241,7 @@ export default function ProductDetailPage() {
                   {ALL_TIMES.map((time) => {
                     const hasUsage = product.usageLevels !== undefined;
                     const defaultActive = product.timeOfDay.includes(time);
-                    const fillValue = hasUsage ? (product.usageLevels[time] || 0) : (defaultActive ? 100 : 0);
+                    const fillValue = hasUsage ? (product.usageLevels?.[time] ?? 0) : (defaultActive ? 100 : 0);
                     const isActive = hasUsage ? fillValue > 0 : defaultActive;
                     const cfg = timeOfDayConfig[time];
                     return (
@@ -255,7 +255,7 @@ export default function ProductDetailPage() {
                         <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full ${cfg.color} transition-all duration-700`}
-                            style={{ width: `${hasUsage ? fillValue : (defaultActive ? 100 : 0)}%` }}
+                            style={{ width: `${fillValue}%` }}
                           />
                         </div>
                       </div>

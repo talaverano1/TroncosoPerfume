@@ -40,29 +40,49 @@ export default function Footer() {
     <footer id="contacto" className="bg-black text-white">
       <div className="h-px gold-gradient" />
 
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-3 md:gap-12 items-start">
+          
           {/* Brand */}
-          <div>
-            <h3 className="font-[family-name:var(--font-heading)] text-2xl mb-4">
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="font-[family-name:var(--font-heading)] text-lg md:text-2xl mb-1 md:mb-4">
               Troncoso <span className="text-gold">Perfumes</span>
             </h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 text-xs md:text-sm leading-tight md:leading-relaxed">
               Fragancias originales y premium para quienes buscan elegancia y distinción en cada detalle.
             </p>
           </div>
 
+          {/* Social (Movido arriba en móvil con col de la izquierda) */}
+          <div className="col-span-1 order-2 md:order-3">
+            <h4 className="text-gold text-xs md:text-sm font-semibold uppercase tracking-wider mb-1.5 md:mb-4">
+              Seguinos
+            </h4>
+            <div className="flex gap-2.5 md:gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="text-gray-400 hover:text-gold transition-colors duration-300 transform scale-90 origin-left md:scale-100"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Links */}
-          <div>
-            <h4 className="text-gold text-sm font-semibold uppercase tracking-wider mb-4">
+          <div className="col-span-1 order-3 md:order-2">
+            <h4 className="text-gold text-xs md:text-sm font-semibold uppercase tracking-wider mb-1 md:mb-4">
               Enlaces
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-0 md:space-y-3">
               {footerLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.label} className="leading-tight">
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-gold text-sm transition-colors duration-300"
+                    className="text-gray-400 hover:text-gold text-xs md:text-sm transition-colors duration-300"
                   >
                     {link.label}
                   </a>
@@ -70,29 +90,11 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
-          {/* Social */}
-          <div>
-            <h4 className="text-gold text-sm font-semibold uppercase tracking-wider mb-4">
-              Seguinos
-            </h4>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="text-gray-400 hover:text-gold transition-colors duration-300"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
+          
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-white/10 mt-3 pt-2 md:mt-12 md:pt-8 text-center">
+          <p className="text-gray-500 text-[10px] md:text-sm">
             © {new Date().getFullYear()} Troncoso Perfumes. Todos los derechos reservados.
           </p>
         </div>

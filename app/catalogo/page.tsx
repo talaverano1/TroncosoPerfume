@@ -132,7 +132,7 @@ export default function CatalogoPage() {
       <Navbar />
 
       <main className="min-h-screen bg-[#0A0A0A] pt-24 pb-24">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-8 xl:px-10">
 
           {/* ── Breadcrumb ───────────────────────────────────────────────── */}
           <motion.nav
@@ -313,7 +313,7 @@ export default function CatalogoPage() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-40px" }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch"
                   >
                     {flatList.map((product, i) => (
                       <motion.div key={product.id} variants={fadeUp} className="h-full">
@@ -355,7 +355,7 @@ export default function CatalogoPage() {
                           initial="hidden"
                           whileInView="visible"
                           viewport={{ once: true, margin: "-40px" }}
-                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
+                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch"
                         >
                           {section.products.map((product, i) => (
                             <motion.div key={product.id} variants={fadeUp} className="h-full">

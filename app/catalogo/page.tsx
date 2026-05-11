@@ -313,10 +313,10 @@ export default function CatalogoPage() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-40px" }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
                   >
                     {flatList.map((product, i) => (
-                      <motion.div key={product.id} variants={fadeUp}>
+                      <motion.div key={product.id} variants={fadeUp} className="h-full">
                         <ProductCard product={product} index={i} />
                       </motion.div>
                     ))}
@@ -355,10 +355,10 @@ export default function CatalogoPage() {
                           initial="hidden"
                           whileInView="visible"
                           viewport={{ once: true, margin: "-40px" }}
-                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
                         >
                           {section.products.map((product, i) => (
-                            <motion.div key={product.id} variants={fadeUp}>
+                            <motion.div key={product.id} variants={fadeUp} className="h-full">
                               <ProductCard product={product} index={i} />
                             </motion.div>
                           ))}

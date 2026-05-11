@@ -12,13 +12,13 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, index }: ProductCardProps) {
   return (
-      <motion.div
+    <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -6 }}
-      className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-row md:flex-col items-stretch"
+      className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-row md:flex-col items-stretch h-full"
     >
       {product.isBestseller && (
         <span className="absolute top-2 left-2 md:top-3 md:left-3 z-10 bg-gold text-black text-[10px] md:text-xs font-semibold px-2 py-0.5 md:px-3 md:py-1 rounded-full tracking-wide shadow-sm">
@@ -27,7 +27,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       )}
 
       {/* Contenedor de la Imagen: 40% del ancho en móvil, 100% en desktop */}
-      <div className="relative w-[40%] md:w-full min-h-[160px] md:min-h-0 md:h-64 overflow-hidden bg-[#111] shrink-0">
+      {/* Fixed height keeps every card's image area identical across the grid */}
+      <div className="relative w-[40%] md:w-full h-full md:h-52 overflow-hidden bg-[#111] shrink-0">
         <Image
           src={product.image}
           alt={product.name}

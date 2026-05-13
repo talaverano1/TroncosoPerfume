@@ -15,11 +15,6 @@ interface AdItem {
 
 const ads: AdItem[] = [
   { id: 1, name: "Soberano", tagline: "Elegante. Intenso. Inolvidable.", image: "/SoberanoPublicidad.png", accent: "#C9A96E" },
-  { id: 2, name: "Rosa Imperial", tagline: "La elegancia hecha fragancia", image: "/RosaImperialPublicidad.png", accent: "#E8A0BF" },
-  { id: 3, name: "Oud Dorado", tagline: "Un viaje al corazón del lujo", image: "/OudDoradoPublicidad.png", accent: "#D4A017" },
-  { id: 4, name: "Brisa Marina", tagline: "Libertad en cada nota", image: "/BrisaMarinaPublicidad.png", accent: "#67C8D4" },
-  { id: 5, name: "Vetiver Noche", tagline: "La oscuridad tiene su propio lenguaje", image: "/VetiverNochePublicidad.png", accent: "#8A9BA8" },
-  { id: 6, name: "Flor de Azahar", tagline: "Delicadeza que florece en tu piel", image: "/FlorDeAzaharPublicidad.png", accent: "#F5CBA7" },
 ];
 
 // Responsive card: 78% of viewport width, max 800px

@@ -20,8 +20,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       whileHover={{ y: -6 }}
       className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-row md:flex-col items-stretch h-full"
     >
+      {/* Full-card tap target on mobile only */}
+      <Link
+        href={`/product/${product.id}`}
+        className="absolute inset-0 z-10 md:hidden"
+        aria-label={`Ver ${product.name}`}
+      />
+
       {product.isBestseller && (
-        <span className="absolute top-2 left-2 md:top-3 md:left-3 z-10 bg-gold text-black text-[10px] md:text-xs font-semibold px-2 py-0.5 md:px-3 md:py-1 rounded-full tracking-wide shadow-sm">
+        <span className="absolute top-2 left-2 md:top-3 md:left-3 z-20 bg-gold text-black text-[10px] md:text-xs font-semibold px-2 py-0.5 md:px-3 md:py-1 rounded-full tracking-wide shadow-sm">
           Más vendido
         </span>
       )}
@@ -74,9 +81,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               </div>
             );
           })()}
+          {/* "Ver producto" button: only visible on desktop */}
           <Link
             href={`/product/${product.id}`}
-            className="bg-black text-white text-[11px] md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gold hover:text-black transition-colors duration-300 w-fit md:w-auto text-center"
+            className="hidden md:flex relative z-20 bg-black text-white text-sm px-4 py-2 rounded-full hover:bg-gold hover:text-black transition-colors duration-300 w-fit text-center"
           >
             Ver producto
           </Link>

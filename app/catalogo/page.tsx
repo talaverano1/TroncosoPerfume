@@ -189,7 +189,7 @@ export default function CatalogoPage() {
                       : "text-white/50 hover:text-white/80 hover:bg-white/5"
                       }`}
                   >
-                    <span>{icon}</span>
+                    <span className="text-xl sm:text-base leading-none">{icon}</span>
                     <span className="hidden sm:inline">{label}</span>
                   </button>
                 ))}

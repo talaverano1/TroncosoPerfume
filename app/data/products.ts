@@ -14,6 +14,8 @@ export interface Longevity {
   label: string;   // e.g. "Larga duración"
 }
 
+export type SizeKey = "5 ml" | "50 ml";
+
 export interface Product {
   id: number;
   name: string;
@@ -21,9 +23,12 @@ export interface Product {
   description: string;
   fullDescription: string;
   images?: string[]; // multiple images for carousel; falls back to [image]
-  price: number;
+  /** Regular prices for each size */
+  prices: Record<SizeKey, number>;
   image: string;
   isBestseller: boolean;
+  /** Discounted prices per size. A size is considered on sale when discountPrices[size] < prices[size]. */
+  discountPrices?: Partial<Record<SizeKey, number>>;
   scentNotes: ScentNote[];
   mainAccords: MainAccord[];
   timeOfDay: ("Día" | "Noche")[];
@@ -47,10 +52,17 @@ export const products: Product[] = [
       + "Cierra con vainilla y haba tonka: un fondo cálido, adictivo y duradero.\n"
       + "No es un perfume más.\n"
       + "Es presencia que se siente.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Soberano/Soberano_Img_1.jpg",
     images: ["/Soberano/Soberano_Img_1.jpg", "/Soberano/Soberano_Img_2.jpg"],
     isBestseller: true,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Mandarina", intensity: 9 },
       { name: "Bergamota", intensity: 8 },
@@ -97,10 +109,17 @@ export const products: Product[] = [
       + "Y al final… vainilla y ámbar gris, cálidos y sensuales, que se funden con la piel.\n"
       + "Fresco al inicio.\n"
       + "Irresistible al final.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Salvatore/Salvatore_Img_1.jpg",
     images: ["/Salvatore/Salvatore_Img_1.jpg"],
     isBestseller: false,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Cítricos", intensity: 10 },
       { name: "Frutas Tropicales", intensity: 9 },
@@ -145,10 +164,17 @@ export const products: Product[] = [
       + "Vetiver, trufa, cedro y roble cierran con una profundidad oscura, intensa y adictiva.\n"
       + "Fresco al inicio…\n"
       + "pero termina siendo puro magnetismo.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Indomable/Indomable_Img_1.jpg",
     images: ["/Indomable/Indomable_Img_1.jpg"],
     isBestseller: true,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Lavanda", intensity: 9 },
       { name: "Pimienta Rosa", intensity: 8 },
@@ -196,10 +222,17 @@ export const products: Product[] = [
       + "Sándalo, haba tonka y ámbar gris se funden en la piel… dulces, profundos y adictivos.\n"
       + "Empieza fresco…\n"
       + "termina siendo pura tentación.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Tropical/Tropical_Img_1.jpg",
     images: ["/Tropical/Tropical_Img_1.jpg"],
     isBestseller: false,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Piña", intensity: 10 },
       { name: "Jengibre", intensity: 8 },
@@ -247,10 +280,17 @@ export const products: Product[] = [
       + "No es solo un aroma.\n"
       + "Es creer hasta el final.\n"
       + "CAMPEONES.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Campeones/Campeones_Img_1.jpg",
     images: ["/Campeones/Campeones_Img_1.jpg"],
     isBestseller: true,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Lavanda", intensity: 9 },
       { name: "Cardamomo", intensity: 8 },
@@ -300,10 +340,17 @@ export const products: Product[] = [
       + "Sutil al inicio…\n"
       + "pero de esos aromas que te desarman, te confunden…\n"
       + "y te hacen desear lo que ya no podés tener.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Amor y Luz/AmorYLuz_Img_1.jpg",
     images: ["/Amor y Luz/AmorYLuz_Img_1.jpg"],
     isBestseller: false,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Champagne Rosé", intensity: 9 },
       { name: "Pimienta Rosa", intensity: 7 },
@@ -347,10 +394,17 @@ export const products: Product[] = [
       + "Vainilla y cumarina quedan en la piel… cálidas, adictivas, imposibles de olvidar.\n"
       + "Un aroma que se queda…\n"
       + "como esos recuerdos que vuelven cuando menos lo esperás.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/Clasico Blush/ClasicoBlush_Img_1.jpg",
     images: ["/Clasico Blush/ClasicoBlush_Img_1.jpg"],
     isBestseller: false,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Bergamota", intensity: 8 },
       { name: "Almendra", intensity: 9 },
@@ -398,9 +452,16 @@ export const products: Product[] = [
       + "Haba tonka, cacao, vainilla, praliné, ámbar y maderas se funden en la piel… cálidos, intensos y memorables.\n"
       + "Un aroma que se vuelve costumbre…\n"
       + "y termina siendo un recuerdo del que no te soltás.",
-    price: 55000,
+    prices: {
+      "5 ml": 12000,
+      "50 ml": 64000,
+    },
     image: "/hero-bg.png",
     isBestseller: true,
+    discountPrices: {
+      "5 ml": 12000,
+      "50 ml": 55000,
+    },
     scentNotes: [
       { name: "Almendra", intensity: 9 },
       { name: "Café", intensity: 8 },

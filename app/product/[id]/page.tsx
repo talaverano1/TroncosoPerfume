@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { products } from "@/app/data/products";
+import { products, type SizeKey } from "@/app/data/products";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,15 +67,26 @@ const timeOfDayConfig: Record<string, { icon: string; color: string }> = {
 const ALL_SEASONS = ["Invierno", "Primavera", "Verano", "Otoño"] as const;
 const ALL_TIMES = ["Día", "Noche"] as const;
 
+// ─── Size options (labels only — prices come from each product's `prices` field) ──
+const SIZE_LABELS: SizeKey[] = ["5 ml", "50 ml"];
+
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
   const product = products.find((p) => p.id === Number(params.id));
   const [showAccordsBars, setShowAccordsBars] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<SizeKey>("50 ml");
 
   if (!product) return notFound();
 
+  // Resolve prices: a size is on sale when discountPrices[size] < prices[size]
+  const originalPrice = product.prices[selectedSize];
+  const discountedPrice = product.discountPrices?.[selectedSize];
+  const isOnSale = discountedPrice != null && discountedPrice < originalPrice;
+  const currentPrice = isOnSale ? discountedPrice : originalPrice;
+  const savingsPct = isOnSale ? Math.round((1 - currentPrice / originalPrice) * 100) : 0;
+
   const whatsappMessage = encodeURIComponent(
-    `Hola! Me interesa el perfume "${product.name}" (ARS ${product.price.toLocaleString("es-AR")}). ¿Tienen stock disponible?`
+    `Hola! Me interesa el perfume "${product.name}" en ${selectedSize} (ARS ${currentPrice.toLocaleString("es-AR")}). ¿Tienen stock disponible?`
   );
   const whatsappUrl = `https://wa.me/5492615177609?text=${whatsappMessage}`;
 
@@ -324,10 +335,73 @@ export default function ProductDetailPage() {
 
               {/* Price */}
               <motion.div variants={fadeUp}>
-                <p className="text-gold text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
-                  ARS {product.price.toLocaleString("es-AR")}
-                </p>
+                {/* Current price + optional savings badge */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <p className="text-gold text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
+                    ARS {currentPrice.toLocaleString("es-AR")}
+                  </p>
+                  {isOnSale && (
+                    <span className="inline-flex items-center gap-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold px-2.5 py-1 rounded-full tracking-wide">
+                      <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5" aria-hidden="true">
+                        <path fillRule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm.75-9.75a.75.75 0 00-1.5 0v3.19L7.47 8.66a.75.75 0 10-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06l-1.66 1.78V7.25z" clipRule="evenodd" />
+                      </svg>
+                      Ahorrás {savingsPct}%
+                    </span>
+                  )}
+                </div>
+
+                {/* Strikethrough original price */}
+                {isOnSale && (
+                  <p className="text-white/35 text-sm sm:text-base line-through mt-1">
+                    ARS {originalPrice.toLocaleString("es-AR")}
+                  </p>
+                )}
+
                 <p className="text-white/40 text-sm md:text-base mt-2">Precio por unidad · Stock disponible</p>
+
+                {/* Size selector */}
+                <div className="mt-4 flex flex-col gap-2">
+                  <span className="text-white/50 text-xs uppercase tracking-[0.2em] font-semibold">Tamaño del envase</span>
+                  <div className="flex gap-2">
+                    {SIZE_LABELS.map((size) => {
+                      const isSelected = selectedSize === size;
+                      const optOriginalPrice = product.prices[size];
+                      const optDiscountedPrice = product.discountPrices?.[size];
+                      const hasOptDiscount = optDiscountedPrice != null && optDiscountedPrice < optOriginalPrice;
+                      return (
+                        <button
+                          key={size}
+                          id={`size-${size.replace(" ", "")}`}
+                          onClick={() => setSelectedSize(size)}
+                          className={`relative flex flex-col items-center justify-center gap-0.5 px-4 py-2.5 rounded-xl border-2 font-bold text-sm tracking-wide transition-all duration-250 select-none ${isSelected
+                            ? "gold-gradient text-black border-transparent shadow-lg shadow-gold/30 scale-105"
+                            : "bg-transparent text-gold border-gold/40 hover:border-gold/80 hover:bg-gold/5"
+                            }`}
+                          aria-pressed={isSelected}
+                        >
+                          <span className="text-base leading-none">{size}</span>
+                          {hasOptDiscount ? (
+                            <>
+                              <span className={`text-[10px] font-semibold tracking-widest leading-none ${isSelected ? "text-black/70" : "text-gold/80"
+                                }`}>
+                                ARS {optDiscountedPrice!.toLocaleString("es-AR")}
+                              </span>
+                              <span className={`text-[9px] font-semibold leading-none line-through ${isSelected ? "text-black/40" : "text-white/30"
+                                }`}>
+                                {optOriginalPrice.toLocaleString("es-AR")}
+                              </span>
+                            </>
+                          ) : (
+                            <span className={`text-[10px] font-semibold tracking-widest leading-none ${isSelected ? "text-black/70" : "text-white/40"
+                              }`}>
+                              ARS {optOriginalPrice.toLocaleString("es-AR")}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </motion.div>
 
               {/* Divider */}

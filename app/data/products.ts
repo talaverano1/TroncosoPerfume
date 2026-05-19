@@ -39,6 +39,22 @@ export interface Product {
   longevity: Longevity;
 }
 
+// ─── Cream / Complementos ─────────────────────────────────────────────────────
+export interface Cream {
+  id: number;
+  name: string;
+  description: string;
+  fullDescription: string;
+  image: string;
+  images?: string[];
+  /** Fixed price (single size) */
+  price: number;
+  /** e.g. "100 gr" */
+  quantity: string;
+  /** Optional discount price */
+  discountPrice?: number;
+}
+
 export const products: Product[] = [
   // ── 1. Soberano ──────────────────────────────────────────────────────────────
   {
@@ -57,7 +73,7 @@ export const products: Product[] = [
       "50 ml": 64000,
     },
     image: "/Soberano/Soberano_Img_1.jpg",
-    images: ["/Soberano/Soberano_Img_1.jpg", "/Soberano/Soberano_Img_2.jpg"],
+    images: ["/Soberano/Soberano_Img_2.jpg", "/Soberano/Soberano_Img_1.jpg"],
     isBestseller: true,
     discountPrices: {
       "5 ml": 12000,
@@ -345,7 +361,7 @@ export const products: Product[] = [
       "50 ml": 64000,
     },
     image: "/Amor y Luz/AmorYLuz_Img_1.jpg",
-    images: ["/Amor y Luz/AmorYLuz_Img_1.jpg"],
+    images: ["/Amor y Luz/AmorYLuz_Img_2.png", "/Amor y Luz/AmorYLuz_Img_1.jpg"],
     isBestseller: false,
     discountPrices: {
       "5 ml": 12000,
@@ -399,7 +415,7 @@ export const products: Product[] = [
       "50 ml": 64000,
     },
     image: "/Clasico Blush/ClasicoBlush_Img_1.jpg",
-    images: ["/Clasico Blush/ClasicoBlush_Img_1.jpg"],
+    images: ["/Clasico Blush/ClasicoBlush_Img_1.jpg", "/Clasico Blush/ClasicoBlush_Img_2.jpg"],
     isBestseller: false,
     discountPrices: {
       "5 ml": 12000,
@@ -456,7 +472,8 @@ export const products: Product[] = [
       "5 ml": 12000,
       "50 ml": 64000,
     },
-    image: "/hero-bg.png",
+    image: "/Regina/Regina_Img_3.png",
+    images: ["/Regina/Regina_Img_2.png", "/Regina/Regina_Img_1.png", "/Regina/Regina_Img_3.png"],
     isBestseller: true,
     discountPrices: {
       "5 ml": 12000,
@@ -496,5 +513,25 @@ export const products: Product[] = [
     climate: ["Otoño", "Invierno"],
     occasions: ["Ocasiones Especiales", "Cenas", "Eventos de Gala"],
     longevity: { hours: 12, label: "Larga duración" },
+  },
+];
+
+export const creams: Cream[] = [
+  {
+    id: 101,
+    name: "Crema Fijadora Humectante",
+    description: "Nuestra crema fijadora está diseñada para preparar e hidratar la piel antes de aplicar la fragancia, ayudando a mejorar la adherencia del perfume y prolongar su sensación sobre la pie",
+    fullDescription:
+      "Hidratación ligera y rápida absorción\n"
+      + "Ayuda a preparar la piel para la aplicación del perfume\n"
+      + "Fórmula con vitaminas y agentes humectantes\n"
+      + "Ayuda a proteger la barrera natural de la piel\n"
+      + "Textura suave y no grasosa\n"
+      + "Compatible con cualquier fragancia\n"
+      + "Sensación sedosa y confortable sobre la piel\n"
+      + "Ideal para complementar la experiencia del perfume",
+    image: "/Crema/Crema_Img_1.png",
+    price: 10000,
+    quantity: "100 gr",
   },
 ];

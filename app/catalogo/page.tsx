@@ -5,7 +5,8 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import ProductCard from "@/app/components/ui/ProductCard";
-import { products, Product } from "@/app/data/products";
+import CreamCard from "@/app/components/ui/CreamCard";
+import { products, creams, Product } from "@/app/data/products";
 import Link from "next/link";
 
 // ─── Variants ────────────────────────────────────────────────────────────────
@@ -378,6 +379,45 @@ export default function CatalogoPage() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          {/* ── Complementos Section ──────────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="mt-20 pt-12 border-t border-white/8"
+          >
+            {/* Section header */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-2 h-2 rounded-full bg-amber-400" />
+              <h2 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-amber-300">
+                Complementos
+              </h2>
+              <div className="h-px flex-1 bg-white/8" />
+              <span className="text-white/25 text-xs font-medium">
+                {creams.length} {creams.length === 1 ? "producto" : "productos"}
+              </span>
+            </div>
+            <p className="text-white/35 text-sm mb-8 max-w-md">
+              Productos de cuidado personal para complementar tu fragancia.
+            </p>
+
+            {/* Cards grid — max 4 columns, left-aligned */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+              {creams.map((cream, i) => (
+                <motion.div key={cream.id} variants={fadeUp}>
+                  <CreamCard cream={cream} index={i} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </main>
 
